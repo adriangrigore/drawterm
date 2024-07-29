@@ -14,9 +14,10 @@ vtomp(vlong v, mpint *b)
 	int s;
 	uvlong uv;
 
-	if(b == nil)
+	if(b == nil){
 		b = mpnew(VLDIGITS*Dbits);
-	else
+		setmalloctag(b, getcallerpc(&v));
+	}else
 		mpbits(b, VLDIGITS*Dbits);
 	mpassign(mpzero, b);
 	if(v == 0)

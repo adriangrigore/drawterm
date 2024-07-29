@@ -9,8 +9,10 @@ letomp(uchar *s, uint n, mpint *b)
 	int i=0, m = 0;
 	mpdigit x=0;
 
-	if(b == nil)
+	if(b == nil){
 		b = mpnew(0);
+		setmalloctag(b, getcallerpc(&s));
+	}
 
 	// dump leading zeros
 	while(s[n-1] == 0 && n > 1){
