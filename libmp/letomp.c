@@ -15,7 +15,7 @@ letomp(uchar *s, uint n, mpint *b)
 	}
 
 	// dump leading zeros
-	while(s[n-1] == 0 && n > 1){
+	while(s[n-1] == 0 && n > 1 && !(b->flags & MPtimesafe)){
 		n--;
 	}
 
@@ -25,8 +25,14 @@ letomp(uchar *s, uint n, mpint *b)
 	if(n==1 && *s == 0){
 		b->top = 0;
 		*b->p = 0;
+		b->flags |= MPnorm;
 		goto Out;
 	}
+
+	if(b->flags & MPtimesafe)
+		b->flags &= ~MPnorm;
+	else
+		b->flags |= MPnorm;
 
 	for(; n > 0; n--){
 		x |= ((mpdigit)(*s++)) << i;

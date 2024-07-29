@@ -24,7 +24,9 @@ struct mpint
 
 enum
 {
-	MPstatic=	0x01,
+	MPstatic=	0x01,	/* static constant */
+	MPnorm=	0x02,	/* normalization status */
+	MPtimesafe=	0x04,	/* request time invariant computation */
 	MPfield=	0x08,	/* this mpint is a field modulus */
 	Dbytes=		sizeof(mpdigit),	/* bytes per digit */
 	Dbits=		Dbytes*8		/* bits per digit */
@@ -76,7 +78,7 @@ void	mpmul(mpint *b1, mpint *b2, mpint *prod);	/* prod = b1*b2 */
 void	mpexp(mpint *b, mpint *e, mpint *m, mpint *res);	/* res = b**e mod m */
 void	mpmod(mpint *b, mpint *m, mpint *remainder);	/* remainder = b mod m */
 
-/* modular arithmetic */
+/* modular arithmetic, time invariant when 0≤b1≤m-1 and 0≤b2≤m-1 */
 void	mpmodadd(mpint *b1, mpint *b2, mpint *m, mpint *sum);	/* sum = b1+b2 % m */
 void	mpmodsub(mpint *b1, mpint *b2, mpint *m, mpint *diff);	/* diff = b1-b2 % m */
 void	mpmodmul(mpint *b1, mpint *b2, mpint *m, mpint *prod);	/* prod = b1*b2 % m */
@@ -122,9 +124,11 @@ int	mpvecdigmulsub(mpdigit *b, int n, mpdigit m, mpdigit *p);
 /* p[0:alen*blen-1] = a[0:alen-1] * b[0:blen-1] */
 /* prereq: alen >= blen, p has room for m*n digits */
 void	mpvecmul(mpdigit *a, int alen, mpdigit *b, int blen, mpdigit *p);
+void	mpvectsmul(mpdigit *a, int alen, mpdigit *b, int blen, mpdigit *p);
 
 /* sign of a - b or zero if the same */
 int	mpveccmp(mpdigit *a, int alen, mpdigit *b, int blen);
+int	mpvectscmp(mpdigit *a, int alen, mpdigit *b, int blen);
 
 /* divide the 2 digit dividend by the one digit divisor and stick in quotient */
 /* we assume that the result is one digit - overflow is all 1's */

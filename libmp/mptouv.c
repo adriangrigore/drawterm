@@ -18,14 +18,23 @@ uvtomp(uvlong v, mpint *b)
 		setmalloctag(b, getcallerpc(&v));
 	}else
 		mpbits(b, VLDIGITS*Dbits);
-	mpassign(mpzero, b);
-	if(v == 0)
-		return b;
-	for(s = 0; s < VLDIGITS && v != 0; s++){
+
+	if (b->flags & MPtimesafe) 
+		b->flags &= ~MPnorm;
+	else
+		b->flags |= MPnorm;
+
+	if(v == 0){
+		b->top = 0;
+		*b->p = 0;
+		goto Out;
+	}
+	for(s = 0; (s < VLDIGITS && b->flags & MPtimesafe) || (s < VLDIGITS && !(b->flags & MPtimesafe) && v != 0); s++){
 		b->p[s] = v;
 		v >>= sizeof(mpdigit)*8;
 	}
 	b->top = s;
+Out:
 	b->sign = 1;
 	return b;
 }

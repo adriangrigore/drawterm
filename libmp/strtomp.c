@@ -201,7 +201,11 @@ strtomp(char *a, char **pp, int base, mpint *b)
 	if(e == a)
 		return nil;
 
-	mpnorm(b);
+	if (b->flags & MPtimesafe) 
+		b->flags &= ~MPnorm;
+	else
+		mpnorm(b);
+
 	b->sign = sign;
 	if(pp != nil)
 		*pp = e;

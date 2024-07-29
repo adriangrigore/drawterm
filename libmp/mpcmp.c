@@ -8,10 +8,14 @@ mpmagcmp(mpint *b1, mpint *b2)
 {
 	int i;
 
-	i = b1->top - b2->top;
-	if(i)
-		return i;
-
+	i = b1->flags | b2->flags;
+	if(i & MPtimesafe)
+		return mpvectscmp(b1->p, b1->top, b2->p, b2->top);
+	if(i & MPnorm){
+		i = b1->top - b2->top;
+		if(i)
+			return i;
+	}
 	return mpveccmp(b1->p, b1->top, b2->p, b2->top);
 }
 

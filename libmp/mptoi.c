@@ -14,14 +14,23 @@ itomp(int i, mpint *b)
 		b = mpnew(0);
 		setmalloctag(b, getcallerpc(&i));
 	}
-	mpassign(mpzero, b);
+
+	if (b->flags & MPtimesafe) 
+		b->flags &= ~MPnorm;
+	else
+		b->flags |= MPnorm;
+
 	if(i != 0)
 		b->top = 1;
+	else
+		b->top = 0;
 	if(i < 0){
 		b->sign = -1;
 		*b->p = -i;
-	} else
+	} else {
+		b->sign = 1;
 		*b->p = i;
+	}
 	return b;
 }
 

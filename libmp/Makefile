@@ -38,6 +38,7 @@ OFILES=\
 	mptov.$O\
 	mpvecadd.$O\
 	mpveccmp.$O\
+	mpvectscmp.$O\
 	mpvecdigmuladd.$O\
 	mpvecsub.$O\
 	strtomp.$O\

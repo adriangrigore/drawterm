@@ -34,9 +34,15 @@ mprand(int bits, void (*gen)(uchar*, int), mpint *b)
 		b->p[n] &= mask;
 	}
 
-	for(; n >= 0; n--)
+	for(; n >= 0 && !(b->flags && MPtimesafe); n--)
 		if(b->p[n] != 0)
 			break;
+
+	if (b->flags & MPtimesafe) 
+		b->flags &= ~MPnorm;
+	else
+		b->flags |= MPnorm;
+
 	b->top = n+1;
 	b->sign = 1;
 	return b;

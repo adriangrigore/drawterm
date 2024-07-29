@@ -19,15 +19,26 @@ vtomp(vlong v, mpint *b)
 		setmalloctag(b, getcallerpc(&v));
 	}else
 		mpbits(b, VLDIGITS*Dbits);
-	mpassign(mpzero, b);
-	if(v == 0)
+
+	if (b->flags & MPtimesafe) 
+		b->flags &= ~MPnorm;
+	else
+		b->flags |= MPnorm;
+
+	if(v == 0){
+		b->top = 0;
+		*b->p = 0;
+		b->sign = 1;
 		return b;
+	}
 	if(v < 0){
 		b->sign = -1;
 		uv = -v;
-	} else
+	} else{
+		b->sign = 1;
 		uv = v;
-	for(s = 0; s < VLDIGITS && uv != 0; s++){
+	}
+	for(s = 0; (s < VLDIGITS && b->flags & MPtimesafe) || (s < VLDIGITS && !(b->flags & MPtimesafe) && uv != 0); s++){
 		b->p[s] = uv;
 		uv >>= sizeof(mpdigit)*8;
 	}

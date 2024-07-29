@@ -9,6 +9,8 @@ mpmagadd(mpint *b1, mpint *b2, mpint *sum)
 	int m, n;
 	mpint *t;
 
+	sum->flags |= (b1->flags | b2->flags) & MPtimesafe;
+
 	// get the sizes right
 	if(b2->top > b1->top){
 		t = b1;
@@ -32,7 +34,8 @@ mpmagadd(mpint *b1, mpint *b2, mpint *sum)
 	mpvecadd(b1->p, n, b2->p, m, sum->p);
 	sum->sign = 1;
 
-	mpnorm(sum);
+	if (!(sum -> flags & MPtimesafe))
+		mpnorm(sum);
 }
 
 // sum = b1 + b2
@@ -42,6 +45,7 @@ mpadd(mpint *b1, mpint *b2, mpint *sum)
 	int sign;
 
 	if(b1->sign != b2->sign){
+		assert(((b1->flags | b2->flags | sum->flags) & MPtimesafe) == 0);
 		if(b1->sign < 0)
 			mpmagsub(b2, b1, sum);
 		else

@@ -46,7 +46,14 @@ mpleft(mpint *b, int shift, mpint *res)
 	for(i = 0; i < d; i++)
 		res->p[i] = 0;
 
+	res->flags |= b->flags & MPtimesafe;
+
 	// normalize
-	while(res->top > 0 && res->p[res->top-1] == 0)
+	while(res->top > 0 && res->p[res->top-1] == 0 && !(res->flags & MPtimesafe))
 		res->top--;
+
+	if (res->flags & MPtimesafe) 
+		res->flags &= ~MPnorm;
+	else
+		res->flags |= MPnorm;
 }

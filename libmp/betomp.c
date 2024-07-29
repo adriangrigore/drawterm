@@ -15,7 +15,7 @@ betomp(uchar *p, uint n, mpint *b)
 	}
 
 	// dump leading zeros
-	while(*p == 0 && n > 1){
+	while(*p == 0 && n > 1 && !(b->flags & MPtimesafe)){
 		p++;
 		n--;
 	}
@@ -24,11 +24,17 @@ betomp(uchar *p, uint n, mpint *b)
 	mpbits(b, n*8);
 
 	// handle zero
-	if(*p == 0){
+	if(n==1 && *p == 0){
 		b->top = 0;
 		*b->p = 0;
+		b->flags |= MPnorm;
 		goto Out;
 	}
+
+	if(b->flags & MPtimesafe)
+		b->flags &= ~MPnorm;
+	else
+		b->flags |= MPnorm;
 
 	b->top = DIGITS(n*8);
 	m = b->top-1;
