@@ -22,6 +22,14 @@ betomp(uchar *p, uint n, mpint *b)
 
 	// get the space
 	mpbits(b, n*8);
+
+	// handle zero
+	if(*p == 0){
+		b->top = 0;
+		*b->p = 0;
+		goto Out;
+	}
+
 	b->top = DIGITS(n*8);
 	m = b->top-1;
 
@@ -37,6 +45,7 @@ betomp(uchar *p, uint n, mpint *b)
 			x = 0;
 		}
 	}
+Out:
 	b->sign = 1;
 	return b;
 }
