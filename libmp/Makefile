@@ -22,6 +22,7 @@ OFILES=\
 	mpinvert.$O\
 	mpleft.$O\
 	mpmod.$O\
+	mpmodop.$O\
 	mpmul.$O\
 	mprand.$O\
 	mpnrand.$O\
