@@ -26,8 +26,10 @@ OFILES=\
 	mpright.$O\
 	mpsub.$O\
 	mptobe.$O\
+	mptober.$O\
 	mptoi.$O\
 	mptole.$O\
+	mptolel.$O\
 	mptoui.$O\
 	mptouv.$O\
 	mptov.$O\
