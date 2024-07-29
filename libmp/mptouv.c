@@ -14,9 +14,9 @@ uvtomp(uvlong v, mpint *b)
 	int s;
 
 	if(b == nil)
-		b = mpnew(VLDIGITS*sizeof(mpdigit));
+		b = mpnew(VLDIGITS*Dbits);
 	else
-		mpbits(b, VLDIGITS*sizeof(mpdigit));
+		mpbits(b, VLDIGITS*Dbits);
 	mpassign(mpzero, b);
 	if(v == 0)
 		return b;
