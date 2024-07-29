@@ -38,7 +38,6 @@ mptouv(mpint *b)
 	if(b->top == 0)
 		return 0LL;
 
-	mpnorm(b);
 	if(b->top > VLDIGITS)
 		return MAXVLONG;
 

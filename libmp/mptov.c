@@ -43,7 +43,6 @@ mptov(mpint *b)
 	if(b->top == 0)
 		return 0LL;
 
-	mpnorm(b);
 	if(b->top > VLDIGITS){
 		if(b->sign > 0)
 			return (vlong)MAXVLONG;
