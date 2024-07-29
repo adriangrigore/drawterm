@@ -23,6 +23,7 @@ OFILES=\
 	mpmod.$O\
 	mpmul.$O\
 	mprand.$O\
+	mpnrand.$O\
 	mpright.$O\
 	mpsub.$O\
 	mptobe.$O\
