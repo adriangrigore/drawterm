@@ -15,8 +15,8 @@ mpleft(mpint *b, int shift, mpint *res)
 		return;
 	}
 
-	// a negative left shift is a right shift
-	if(shift < 0){
+	// a zero or negative left shift is a right shift
+	if(shift <= 0){
 		mpright(b, -shift, res);
 		return;
 	}
