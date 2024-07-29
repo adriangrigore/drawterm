@@ -23,6 +23,8 @@ mpright(mpint *b, int shift, mpint *res)
 
 	if(res != b)
 		mpbits(res, b->top*Dbits - shift);
+	else if(shift==0)
+		return;
 	d = shift/Dbits;
 	r = shift - d*Dbits;
 	l = Dbits - r;
