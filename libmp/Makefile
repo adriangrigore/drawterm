@@ -41,6 +41,9 @@ OFILES=\
 	mpvecdigmuladd.$O\
 	mpvecsub.$O\
 	strtomp.$O\
+	mpfield.$O\
+	cnfield.$O\
+	gmfield.$O\
 
 default: $(LIB)
 $(LIB): $(OFILES)

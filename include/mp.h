@@ -25,6 +25,7 @@ struct mpint
 enum
 {
 	MPstatic=	0x01,
+	MPfield=	0x08,	/* this mpint is a field modulus */
 	Dbytes=		sizeof(mpdigit),	/* bytes per digit */
 	Dbits=		Dbytes*8		/* bits per digit */
 };
@@ -155,6 +156,19 @@ void	crtout(CRTpre*, CRTres*, mpint*);	/* convert residues to mpint */
 void	crtprefree(CRTpre*);
 void	crtresfree(CRTres*);
 
+/* fast field arithmetic */
+typedef struct Mfield	Mfield;
+
+struct Mfield
+{
+	mpint;
+	int	(*reduce)(Mfield*, mpint*, mpint*);
+};
+
+mpint *mpfield(mpint*);
+
+Mfield *gmfield(mpint*);
+Mfield *cnfield(mpint*);
 
 #ifdef VARARGCK
 #pragma	varargck	type	"B"	mpint*
