@@ -31,6 +31,7 @@ mpright(mpint *b, int shift, mpint *res)
 
 	//  shift all the bits out == zero
 	if(d>=b->top){
+		res->sign = 1;
 		res->top = 0;
 		return;
 	}
