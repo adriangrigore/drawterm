@@ -40,7 +40,7 @@ OFILES=\
 	mpveccmp.$O\
 	mpvecdigmuladd.$O\
 	mpvecsub.$O\
-	strtomp.$O
+	strtomp.$O\
 
 default: $(LIB)
 $(LIB): $(OFILES)
