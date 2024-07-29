@@ -24,5 +24,6 @@ letomp(uchar *s, uint n, mpint *b)
 	if(i > 0)
 		b->p[m++] = x;
 	b->top = m;
+	b->sign = 1;
 	return b;
 }

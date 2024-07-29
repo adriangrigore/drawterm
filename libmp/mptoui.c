@@ -16,6 +16,7 @@ uitomp(uint i, mpint *b)
 	if(i != 0)
 		b->top = 1;
 	*b->p = i;
+	b->sign = 1;
 	return b;
 }
 

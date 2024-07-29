@@ -25,6 +25,7 @@ uvtomp(uvlong v, mpint *b)
 		v >>= sizeof(mpdigit)*8;
 	}
 	b->top = s;
+	b->sign = 1;
 	return b;
 }
 

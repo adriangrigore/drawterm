@@ -37,6 +37,6 @@ betomp(uchar *p, uint n, mpint *b)
 			x = 0;
 		}
 	}
-
+	b->sign = 1;
 	return b;
 }
